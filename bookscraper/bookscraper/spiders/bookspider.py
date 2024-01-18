@@ -13,6 +13,10 @@ class BookspiderSpider(scrapy.Spider):
     #     }
     # }
 
+    def start_requests(self):
+        for url in self.start_urls:
+            yield scrapy.Request(url=url, callback=self.parse)
+
     def parse(self, response):
         books = response.css('article.product_pod')
         for book in books:
